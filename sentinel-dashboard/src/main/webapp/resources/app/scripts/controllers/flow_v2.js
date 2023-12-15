@@ -146,7 +146,8 @@ app.controller('FlowControllerV2', ['$scope', '$stateParams', 'FlowServiceV2', '
     function deleteRule(rule) {
       FlowService.deleteRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           confirmDialog.close();
         } else {
           alert('失败!');
@@ -157,7 +158,8 @@ app.controller('FlowControllerV2', ['$scope', '$stateParams', 'FlowServiceV2', '
     function addNewRule(rule) {
       FlowService.newRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           flowRuleDialog.close();
         } else {
           alert('失败!');
@@ -175,7 +177,8 @@ app.controller('FlowControllerV2', ['$scope', '$stateParams', 'FlowServiceV2', '
     function saveRule(rule, edit) {
       FlowService.saveRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           if (edit) {
             flowRuleDialog.close();
           } else {

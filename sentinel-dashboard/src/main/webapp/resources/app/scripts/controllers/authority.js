@@ -108,7 +108,8 @@ angular.module('sentinelDashboardApp').controller('AuthorityRuleController', ['$
         function addNewRuleAndPush(rule) {
             AuthorityRuleService.addNewRule(rule).success((data) => {
                 if (data.success) {
-                    getMachineRules();
+                    // 延时拉取，防止 nacos 未同步，获取到之前的数据
+                    setTimeout(getMachineRules, 600);
                     authorityRuleDialog.close();
                 } else {
                     alert('添加规则失败：' + data.msg);
@@ -126,7 +127,8 @@ angular.module('sentinelDashboardApp').controller('AuthorityRuleController', ['$
             AuthorityRuleService.saveRule(rule).success(function (data) {
                 if (data.success) {
                     alert("修改规则成功");
-                    getMachineRules();
+                    // 延时拉取，防止 nacos 未同步，获取到之前的数据
+                    setTimeout(getMachineRules, 600);
                     if (edit) {
                         authorityRuleDialog.close();
                     } else {
@@ -151,7 +153,8 @@ angular.module('sentinelDashboardApp').controller('AuthorityRuleController', ['$
             }
             AuthorityRuleService.deleteRule(entity).success((data) => {
                 if (data.code == 0) {
-                    getMachineRules();
+                    // 延时拉取，防止 nacos 未同步，获取到之前的数据
+                    setTimeout(getMachineRules, 600);
                     confirmDialog.close();
                 } else {
                     alert('删除规则失败：' + data.msg);

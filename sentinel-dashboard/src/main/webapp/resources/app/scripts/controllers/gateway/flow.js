@@ -155,7 +155,8 @@ app.controller('GatewayFlowCtl', ['$scope', '$stateParams', 'GatewayFlowService'
     function addNewRule(rule) {
       GatewayFlowService.newRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           gatewayFlowRuleDialog.close();
         } else {
           alert('新增网关流控规则失败!' + data.msg);
@@ -166,7 +167,8 @@ app.controller('GatewayFlowCtl', ['$scope', '$stateParams', 'GatewayFlowService'
     function saveRule(rule, edit) {
       GatewayFlowService.saveRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           if (edit) {
             gatewayFlowRuleDialog.close();
           } else {
@@ -206,7 +208,8 @@ app.controller('GatewayFlowCtl', ['$scope', '$stateParams', 'GatewayFlowService'
     function deleteRule(rule) {
       GatewayFlowService.deleteRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           confirmDialog.close();
         } else {
           alert('删除网关流控规则失败!' + data.msg);

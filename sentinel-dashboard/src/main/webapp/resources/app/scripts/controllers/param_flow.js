@@ -208,7 +208,8 @@ angular.module('sentinelDashboardApp').controller('ParamFlowController', ['$scop
     function addNewRuleAndPush(rule) {
       ParamFlowService.addNewRule(rule).success((data) => {
         if (data.success) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           paramFlowRuleDialog.close();
         } else {
           alert('添加规则失败：' + data.msg);
@@ -226,7 +227,8 @@ angular.module('sentinelDashboardApp').controller('ParamFlowController', ['$scop
       ParamFlowService.saveRule(rule).success(function (data) {
         if (data.success) {
           alert("修改规则成功");
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           if (edit) {
             paramFlowRuleDialog.close();
           } else {
@@ -251,7 +253,8 @@ angular.module('sentinelDashboardApp').controller('ParamFlowController', ['$scop
       }
       ParamFlowService.deleteRule(entity).success((data) => {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           confirmDialog.close();
         } else {
           alert('删除规则失败：' + data.msg);

@@ -130,7 +130,8 @@ app.controller('GatewayApiCtl', ['$scope', '$stateParams', 'GatewayApiService', 
     function addNewApi(api) {
       GatewayApiService.newApi(api).success(function (data) {
         if (data.code == 0) {
-          getApis();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getApis, 600);
           gatewayApiDialog.close();
         } else {
           alert('新增自定义API失败!' + data.msg);
@@ -141,7 +142,8 @@ app.controller('GatewayApiCtl', ['$scope', '$stateParams', 'GatewayApiService', 
     function saveApi(api, edit) {
       GatewayApiService.saveApi(api).success(function (data) {
         if (data.code == 0) {
-          getApis();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getApis, 600);
           if (edit) {
             gatewayApiDialog.close();
           } else {
@@ -181,7 +183,8 @@ app.controller('GatewayApiCtl', ['$scope', '$stateParams', 'GatewayApiService', 
     function deleteApi(api) {
       GatewayApiService.deleteApi(api).success(function (data) {
         if (data.code == 0) {
-          getApis();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getApis, 600);
           confirmDialog.close();
         } else {
           alert('删除自定义API失败!' + data.msg);

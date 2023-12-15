@@ -161,7 +161,8 @@ app.controller('SystemCtl', ['$scope', '$stateParams', 'SystemService', 'ngDialo
     function deleteRule(rule) {
       SystemService.deleteRule(rule).success(function (data) {
         if (data.code === 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           confirmDialog.close();
         } else if (data.msg != null) {
             alert('失败：' + data.msg);
@@ -178,7 +179,8 @@ app.controller('SystemCtl', ['$scope', '$stateParams', 'SystemService', 'ngDialo
       }
       SystemService.newRule(rule).success(function (data) {
         if (data.code === 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           systemRuleDialog.close();
         } else if (data.msg != null) {
           alert('失败：' + data.msg);
@@ -191,7 +193,8 @@ app.controller('SystemCtl', ['$scope', '$stateParams', 'SystemService', 'ngDialo
     function saveRule(rule, edit) {
       SystemService.saveRule(rule).success(function (data) {
         if (data.code === 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           if (edit) {
             systemRuleDialog.close();
           } else {

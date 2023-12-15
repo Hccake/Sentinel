@@ -136,7 +136,8 @@ app.controller('DegradeCtl', ['$scope', '$stateParams', 'DegradeService', 'ngDia
     function deleteRule(rule) {
       DegradeService.deleteRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           confirmDialog.close();
         } else {
           alert('失败：' + data.msg);
@@ -147,7 +148,8 @@ app.controller('DegradeCtl', ['$scope', '$stateParams', 'DegradeService', 'ngDia
     function addNewRule(rule) {
       DegradeService.newRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           degradeRuleDialog.close();
         } else {
           alert('失败：' + data.msg);
@@ -158,7 +160,8 @@ app.controller('DegradeCtl', ['$scope', '$stateParams', 'DegradeService', 'ngDia
     function saveRule(rule, edit) {
       DegradeService.saveRule(rule).success(function (data) {
         if (data.code == 0) {
-          getMachineRules();
+          // 延时拉取，防止 nacos 未同步，获取到之前的数据
+          setTimeout(getMachineRules, 600);
           if (edit) {
             degradeRuleDialog.close();
           } else {
