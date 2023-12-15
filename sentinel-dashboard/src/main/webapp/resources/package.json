@@ -51,5 +51,8 @@
     "jshint": "^2.10.2",
     "open": "^6.3.0",
     "source-map": "^0.7.3"
+  },
+  "overrides": {
+    "graceful-fs": "^4.2.11"
   }
 }
